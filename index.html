@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企業入社アドバイスシステム</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 企業入社アドバイスシステム</h1>
+            <p>企業を選択し、質問に答えて、ChatGPTからのアドバイスを受け取ろう</p>
+        </header>
+
+        <main>
+            <!-- 企業選択セクション -->
+            <section class="company-selection" id="companySelection">
+                <h2>企業を選択してください</h2>
+                <p class="selection-description">あなたが興味のある企業を選んでください</p>
+
+                <!-- ローディング状態 -->
+                <div class="loading-container" id="loadingContainer">
+                    <div class="loading-spinner-large"></div>
+                    <p>企業データを読み込み中...</p>
+                </div>
+
+                <div class="company-grid" id="companyGrid" style="display: none;">
+                    <!-- 企業がここに動的にロードされます -->
+                </div>
+            </section>
+
+            <!-- 選択された企業情報 -->
+            <section class="selected-company" id="selectedCompany" style="display: none;">
+                <h2>選択された企業</h2>
+                <div class="company-info">
+                    <div class="company-header">
+                        <img src="" alt="企業ロゴ" id="companyLogo" class="company-logo">
+                        <div class="company-details">
+                            <h3 id="companyName"></h3>
+                            <p id="companyDescription"></p>
+                            <div class="company-meta">
+                                <span id="companyIndustry"></span>
+                                <span id="companyLocation"></span>
+                                <span id="companyEmployees"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="company-culture">
+                        <h4>企業文化</h4>
+                        <p id="companyCulture"></p>
+                    </div>
+                    <div class="company-recruitment">
+                        <h4>採用情報</h4>
+                        <p id="companyRecruitment"></p>
+                    </div>
+                </div>
+                <div class="start-questionnaire">
+                    <button id="startQuestionnaire" class="btn-primary">質問に答える</button>
+                </div>
+            </section>
+
+            <!-- 質問セクション -->
+            <section class="question-section" id="questionSection" style="display: none;">
+                <h2>質問に答えてください</h2>
+                <div class="selected-company-info">
+                    <span class="company-badge" id="selectedCompanyBadge"></span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                    <span class="progress-text" id="progressText">1 / 10</span>
+                </div>
+
+                <div class="question-container" id="questionContainer">
+                    <div class="question-card">
+                        <h3 id="currentQuestion">質問が読み込まれています...</h3>
+                        <div class="question-tips" id="questionTips"></div>
+                        <div class="answer-input">
+                            <textarea id="answerInput" placeholder="あなたの回答を入力してください..."></textarea>
+                            <div class="answer-buttons">
+                                <button id="prevQuestion" class="btn-secondary">前の質問へ</button>
+                                <button id="nextQuestion" class="btn-primary">次の質問へ</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 回答完了・ChatGPTアドバイス -->
+            <section class="completion-section" id="completionSection" style="display: none;">
+                <h2>回答完了</h2>
+                <div class="completion-content">
+                    <div class="selected-company-info">
+                        <span class="company-badge" id="completionCompanyBadge"></span>
+                    </div>
+                    <p class="completion-message">すべての質問に回答しました。ChatGPTからのアドバイスを取得しますか？</p>
+                    <div class="completion-buttons">
+                        <button id="getChatGPTAdvice" class="btn-primary">
+                            <span class="btn-text">ChatGPTアドバイスを取得</span>
+                            <span class="loading-spinner" style="display: none;">⏳</span>
+                        </button>
+                        <button id="viewAnswers" class="btn-secondary">回答履歴を確認</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ChatGPTアドバイス結果 -->
+            <section class="advice-result" id="adviceResult" style="display: none;">
+                <h2>ChatGPTからのアドバイス</h2>
+                <div class="advice-content">
+                    <div class="advice-header">
+                        <span class="ai-badge">🤖 ChatGPT</span>
+                        <h3 id="adviceTitle"></h3>
+                    </div>
+                    <div class="advice-text" id="adviceText"></div>
+                    <div class="advice-tips">
+                        <h4>💡 具体的なアドバイス</h4>
+                        <ul id="adviceTips"></ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 回答履歴 -->
+            <section class="answer-history" id="answerHistory" style="display: none;">
+                <h2>あなたの回答履歴</h2>
+                <div class="history-container" id="historyContainer">
+                    <!-- 回答履歴がここに表示されます -->
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2024 企業入社アドバイスシステム</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
