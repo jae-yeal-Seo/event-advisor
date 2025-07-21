@@ -6,7 +6,7 @@ let userAnswers = [];
 let selectedCompany = null;
 
 // ChatGPT API設定（オプション）
-const OPENAI_API_KEY = ''; // 実際の使用時にAPIキーを入力してください
+const OPENAI_API_KEY = API_KEYS?.OPENAI_API_KEY || ''; // 実際の使用時にAPIキーを入力してください
 
 // ユニコード文字を安全にbase64エンコードする関数
 function utf8_to_b64(str) {

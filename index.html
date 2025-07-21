@@ -101,7 +101,6 @@
                             <span class="btn-text">ChatGPTアドバイスを取得</span>
                             <span class="loading-spinner" style="display: none;">⏳</span>
                         </button>
-                        <button id="viewAnswers" class="btn-secondary">回答履歴を確認</button>
                     </div>
                 </div>
             </section>
@@ -119,16 +118,13 @@
                         <h4>💡 具体的なアドバイス</h4>
                         <ul id="adviceTips"></ul>
                     </div>
+                    <div class="advice-actions">
+                        <button id="restartFromAdvice" class="btn-primary">最初からやり直す</button>
+                    </div>
                 </div>
             </section>
 
-            <!-- 回答履歴 -->
-            <section class="answer-history" id="answerHistory" style="display: none;">
-                <h2>あなたの回答履歴</h2>
-                <div class="history-container" id="historyContainer">
-                    <!-- 回答履歴がここに表示されます -->
-                </div>
-            </section>
+
         </main>
 
         <footer>
@@ -136,6 +132,7 @@
         </footer>
     </div>
 
+    <script src="api-key.js"></script>
     <script src="script.js"></script>
 </body>
 
