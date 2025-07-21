@@ -55,9 +55,6 @@ function setupEventListeners() {
     // ChatGPTアドバイス取得ボタン
     document.getElementById('getChatGPTAdvice').addEventListener('click', handleChatGPTAdvice);
     
-    // 回答履歴確認ボタン
-    document.getElementById('viewAnswers').addEventListener('click', showAnswerHistory);
-    
     // 回答入力フィールドでEnterキー
     document.getElementById('answerInput').addEventListener('keypress', function(e) {
         if (e.key === 'Enter' && !e.shiftKey) {
