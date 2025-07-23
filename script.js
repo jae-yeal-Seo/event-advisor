@@ -292,37 +292,15 @@ async function getChatGPTAdvice(company, answers) {
 
     応募者の回答：
     ${answersText}
-
-    以下の形式でアドバイスをしてください：
-
-    💡 総合評価
-    （2-3文で全体的な評価）
-
-    🎯 改善点
-    • （改善点1）
-    • （改善点2）
-    • （改善点3）
-
-    ⭐ 良い点
-    • （良い点1）
-    • （良い点2）
-
-    💪 今後のアドバイス
-    • （具体的なアドバイス1）
-    • （具体的なアドバイス2）
-
-    日本語で回答してください。
     `;
 
     try {
-        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        const response = await fetch('https://[your-api-gateway-endpoint].execute-api.[region].amazonaws.com/[stage]/chat', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${OPENAI_API_KEY}`
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                model: 'gpt-3.5-turbo',
                 messages: [
                     {
                         role: 'system',
@@ -339,13 +317,13 @@ async function getChatGPTAdvice(company, answers) {
         });
 
         const data = await response.json();
-        if (data.choices && data.choices[0]) {
-            return data.choices[0].message.content;
+        if (data.body && typeof data.body === 'string') {
+            return JSON.parse(data.body).choices[0].message.content;
         } else {
-            throw new Error('API応答形式エラー');
+            throw new Error('API Gateway 응답 형식 에러');
         }
     } catch (error) {
-        console.error('ChatGPT API呼び出し失敗:', error);
+        console.error('API Gateway 호출 실패:', error);
         return simulateChatGPTResponse(company, answers);
     }
 }
