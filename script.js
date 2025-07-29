@@ -275,44 +275,29 @@ async function getChatGPTAdvice(company, answers) {
         // APIキーがない場合はシミュレーションされた応答を返す
         return simulateChatGPTResponse(company, answers);
     }
-    
-    const answersText = answers.map((answer, index) => 
-        `Q${index + 1}: ${questions[index].question}\nA: ${answer}`
-    ).join('\n\n');
-    
-    const prompt = `
-    ${company.name}の面接官として、以下の回答を評価し、アドバイスをしてください：
 
+    const companyData = `
     企業情報：
     - 企業名: ${company.name}
     - 業界: ${company.industry}
     - 企業文化: ${company.culture}
     - 採用情報: ${company.recruitment}
     - 企業説明: ${company.description}
-
-    応募者の回答：
-    ${answersText}
     `;
+    const answersText = answers.map((answer, index) => 
+        `Q${index + 1}: ${questions[index].question}\nA: ${answer}`
+    ).join('\n\n');
+
 
     try {
-        const response = await fetch('https://[your-api-gateway-endpoint].execute-api.[region].amazonaws.com/[stage]/chat', {
+        const response = await fetch('https://zj5cf78mu1.execute-api.ap-northeast-1.amazonaws.com/event-cors-free/get-advice', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                messages: [
-                    {
-                        role: 'system',
-                        content: 'あなたは企業の面接官です。応募者の回答を評価し、建設的なアドバイスを提供してください。日本語で回答してください。'
-                    },
-                    {
-                        role: 'user',
-                        content: prompt
-                    }
-                ],
-                max_tokens: 800,
-                temperature: 0.7
+                companyData: companyData,
+                answersText: answersText
             })
         });
 
